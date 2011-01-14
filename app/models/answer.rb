@@ -1,5 +1,6 @@
-class Answer
-  include MongoMapper::Document
+# encoding: utf-8  
+class Answer < ActiveRecord::Base
+
 
   key :content,     String
   key :votes_count, Integer, :default => 0

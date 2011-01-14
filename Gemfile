@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
-gem 'mongo_mapper'
+gem 'mysql2'
 gem 'bson_ext'
 gem 'rdiscount'
 gem 'ruby-openid'

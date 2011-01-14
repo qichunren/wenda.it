@@ -1,25 +1,26 @@
-class User
-  include MongoMapper::Document
+# encoding: utf-8  
+class User < ActiveRecord::Base
 
-  key :name,              String
-  key :salt,              String
-  key :crypted_password,  String
-  key :email,             String
-  key :identify_id,       String
-  key :avatar_path,       String
-  key :about_me,          String
-  key :views_count,       Integer, :default => 0
-  key :last_login_time,   Time
-  key :last_login_ip,     String
-  key :tags,              Array
-  # tags in ruby: [{"id" => "4d1033f698d1b102cb00000a", "name" => "ruby"}, {"id" => "4d1033f698d1b102cb00000b", "name" =>"rails"}]
-  # tags in bson: [{"id" : "4d1033f698d1b102cb00000a", "name" : "ruby"}, {"id" => "4d1033f698d1b102cb00000b", "name" : "rails"}]
-  timestamps!
+  # 
+  # key :name,              String
+  # key :salt,              String
+  # key :crypted_password,  String
+  # key :email,             String
+  # key :identify_id,       String
+  # key :avatar_path,       String
+  # key :about_me,          String
+  # key :views_count,       Integer, :default => 0
+  # key :last_login_time,   Time
+  # key :last_login_ip,     String
+  # key :tags,              Array
+  # # tags in ruby: [{"id" => "4d1033f698d1b102cb00000a", "name" => "ruby"}, {"id" => "4d1033f698d1b102cb00000b", "name" =>"rails"}]
+  # # tags in bson: [{"id" : "4d1033f698d1b102cb00000a", "name" : "ruby"}, {"id" => "4d1033f698d1b102cb00000b", "name" : "rails"}]
+  # timestamps!   
   
-  many :questions
-  many :answers
-  many :comments
-  many :badges
+  has_many :questions
+  has_many :answers
+  has_many :comments
+  has_many :badges
   
   def display_name
     self.name || self.email

@@ -1,23 +1,9 @@
-class Question
-  include MongoMapper::Document
+# encoding: utf-8  
+class Question < ActiveRecord::Base
 
-  key :title,           String
-  key :content,         String
-  key :votes_count,     Integer, :default => 0
-  key :answers_count,   Integer, :default => 0
-  key :views_count,     Integer, :default => 0
-  key :user_id,         ObjectId
-  key :best_answer_id,  ObjectId
-  key :tags,            Array
-  # tags in ruby: [{"id" => "4d1033f698d1b102cb00000a", "name" => "ruby"}, {"id" => "4d1033f698d1b102cb00000b", "name" =>"rails"}]
-  # tags in bson: [{"id" : "4d1033f698d1b102cb00000a", "name" : "ruby"}, {"id" => "4d1033f698d1b102cb00000b", "name" : "rails"}]
-  key :votes,           Array # user_id array
-  # tags in ruby: ["4d1033f698d1b102cb00000a", "4d1033f698d1b102cb00000b", "4d1033f698d1b102cb00000c"]
-  # tags in bson: ["4d1033f698d1b102cb00000a", "4d1033f698d1b102cb00000b", "4d1033f698d1b102cb00000c"]
-  timestamps!
   
   belongs_to :user
-  many :answers
+  has_many :answers
   
   def self.hot(limit = LIMIT)
     all(:limit => limit, :order => "votes_count DESC, answers_count DESC, views_count DESC, created_at DESC")
@@ -49,7 +35,7 @@ class Question
   end
   
   def self.answered_questions_count
-    count - count(:best_answer_id => nil)
+    # count - count(:best_answer_id => nil)
   end
   
   def save_tags(tags)

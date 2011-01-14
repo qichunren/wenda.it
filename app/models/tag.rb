@@ -1,9 +1,6 @@
-class Tag
-  include MongoMapper::Document
+# encoding: utf-8  
+class Tag < ActiveRecord::Base
 
-  key :name,            String
-  key :questions_count, Integer, :default => 1
-  timestamps!
   
   def self.recent(limit = LIMIT)
     all(:limit => limit, :order => "created_at DESC")

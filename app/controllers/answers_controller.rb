@@ -1,3 +1,4 @@
+# encoding: utf-8  
 class AnswersController < ApplicationController
 
   before_filter :login_required, :only => [:edit, :update, :best_answer]

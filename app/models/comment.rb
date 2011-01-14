@@ -1,5 +1,6 @@
-class Comment
-  include MongoMapper::Document
+# encoding: utf-8  
+class Comment < ActiveRecord::Base
+
 
   key :content,     String
   key :user_id,     ObjectId

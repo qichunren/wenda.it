@@ -1,3 +1,4 @@
+# encoding: utf-8
 module ApplicationHelper
   
   def time_ago_in_words(from_time, include_seconds = true)

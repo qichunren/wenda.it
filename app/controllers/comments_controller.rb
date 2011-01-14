@@ -1,3 +1,4 @@
+# encoding: utf-8  
 class CommentsController < ApplicationController
 
   before_filter :validate_comment, :only => [:create]
