@@ -87,7 +87,7 @@ function imgUploading() {
 </div>
 
 <div class="form-submit cbt">
-	<% submit_text = @user.new? ? "注册" : "提交" %>
+	<% submit_text = @user.new_record? ? "注册" : "提交" %>
 	<%= f.submit submit_text, :tabindex=>"120", :style=>"width: 160px"%>
 </div>
 
