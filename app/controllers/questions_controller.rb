@@ -5,12 +5,12 @@ class QuestionsController < ApplicationController
   before_filter :validate_question, :only => [:create, :update]
   
   def index
-    @questions = Question.paginate(params[:page] || 1)
+    @questions = Question.paginate :page => params[:page]
     @youareat = "questions"
   end
   
   def unanswered
-    @questions = Question.unanswered(params[:page] || 1)
+    @questions = Question.unanswered.paginate :page => params[:page]
     @youareat = "unanswered"
   end
   
