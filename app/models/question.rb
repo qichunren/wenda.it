@@ -1,9 +1,10 @@
 # encoding: utf-8  
 class Question < ActiveRecord::Base
-
   
   belongs_to :user
   has_many :answers       
+  acts_as_taggable
+  
   scope :unanswered, where("best_answer_id is null")
   
   def self.hot(limit = LIMIT)
