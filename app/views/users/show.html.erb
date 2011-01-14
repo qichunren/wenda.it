@@ -51,7 +51,7 @@
 		<table style="width: 100%;" class="summary-title">
 			<tr>
 				<td>
-					<span class="summarycount ar"><%=@user.questions_count%></span>								 
+					<span class="summarycount ar"><%=@user.questions_count %></span>								 
 				</td>
 				<td class="summary-header">
 					<span style="font-size: 200%">问题</span>
@@ -60,7 +60,7 @@
 				</td>
 			</tr>
 		</table>
-		<% @user.questions.sort(:created_at).reverse.each do |q| %>
+		<% @user.questions.order(:created_at).reverse.each do |q| %>
 		<div id="question-summary-<%=q.id%>" class="question-summary narrow" style="margin-left: 50px">
 			<div class="cp" onclick="window.open('/questions/<%=q.id%>')">
 				<div class="votes">
@@ -105,7 +105,7 @@
 				</td>
 			</tr>
 		</table>
-		<% @user.answers.sort(:created_at).reverse.each do |a| %>
+		<% @user.answers.order(:created_at).reverse.each do |a| %>
 		<div class="answer-summary" style="margin-left: 50px">
 			<div onclick="window.open('/questions/<%=a.question_id%>#<%=a.id%>')" class="answer-votes <%=a.question.best_answer_id == a.id ? 'answered-accepted' : ''%>" title="<%=a.votes_count%>顶" style="cursor: pointer;"><%=a.votes_count%></div>
 			<div class="answer-link"><a href="/questions/<%=a.question_id%>#<%=a.id%>" class="answer-hyperlink" title="<%=a.content%>" target="_blank"><%=a.question.title%></a></div>
@@ -117,7 +117,7 @@
 		<table class="summary-title" style="width: 100%;">
 			<tr>
 				<td>
-					<span class="summarycount ar"><%=@user.comments_count%></span>								 
+					<span class="summarycount ar"><%=@user.comments_count %></span>								 
 				</td>
 				<td class="summary-header">
 					<span style="font-size: 200%">评论</span>
@@ -126,7 +126,7 @@
 				</td>
 			</tr>
 		</table>
-		<% @user.comments.sort(:created_at).reverse.each do |c| %>
+		<% @user.comments.order(:created_at).reverse.each do |c| %>
 		<div class="answer-summary" style="margin-left: 50px">
 			<div class="answer-link"><a href="/questions/<%=c.answer.question_id%>#<%=c.id%>" class="answer-hyperlink" title="<%=c.content%>" target="_blank"><%=c.answer.question.title%></a></div>
 		</div>
@@ -149,9 +149,7 @@
 		<table style="margin-left: 50px">
 			<tr>
 				<td style="width: 700px">
-					<% @user.tags.each do |t| %>
-					<a rel="tag" title="查看含有标签 '<%=t['name']%>' 的问题" class="post-tag" href="/questions/tagged/<%=u t['name']%>"><%=t['name']%></a>
-					<% end %>
+          
 				</td>
 			</tr>
 		</table>

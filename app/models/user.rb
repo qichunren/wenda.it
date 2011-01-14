@@ -87,19 +87,19 @@ class User < ActiveRecord::Base
   end
   
   def questions_count
-    Question.count(:user_id => self.id)
+    self.questions.count
   end
   
   def answers_count
-    Answer.count(:user_id => self.id)
+    self.answers.count
   end
   
   def comments_count
-    Comment.count(:user_id => self.id)
+    self.comments.count
   end
   
   def tags_count
-    self.tags.size
+    10# self.tags.size
   end
   
 end
