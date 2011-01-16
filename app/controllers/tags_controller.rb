@@ -2,7 +2,7 @@
 class TagsController < ApplicationController
 
   def index
-    @tags = Tag.paginate(params[:page] || 1)
+    @tags = Tag.paginate :page => params[:page]
     @youareat = "tags"
   end
   

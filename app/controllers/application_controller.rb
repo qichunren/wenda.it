@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   
   helper_method :login?, :current_user
     
-  def login?
+  def login?                   
     !session[:user_id].nil?
   end
   
