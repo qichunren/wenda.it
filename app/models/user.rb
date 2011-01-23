@@ -24,15 +24,18 @@ class User < ActiveRecord::Base
   # acts_as_tagger
   attr_accessor :new_password, :new_password_confirmation
   
-  validates_uniqueness_of :name, :email
-  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create  
+  validates :name,  :presence => true, :uniqueness => true
+  validates :email, :presence => true, :uniqueness => true
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :allow_blank => true  
   
-  validates_confirmation_of :new_password, :if=>:password_changed?
+  validates :new_password, :presence => true, :if => :password_changed?
+  validates_confirmation_of :new_password, :if => :password_changed?
    
   before_save :hash_new_password, :if => :password_changed?
    
-  def password_changed?
-     !@new_password.blank?
+  def password_changed? 
+    return true if self.new_record?
+    !@new_password.blank?
   end
   
   

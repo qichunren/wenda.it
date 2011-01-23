@@ -14,7 +14,19 @@
   		return;
   	}
   }
-  </script>
+  </script>   
+  
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h4><%=  @user.errors.count %> 个错误发生:</h4>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <%= form_for(@user, :html => {:multipart => true}) do |f| %>
 
