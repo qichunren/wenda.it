@@ -19,11 +19,7 @@ class Question < ActiveRecord::Base
     raise "Wrong page" if page.to_i < 1
     all(:best_answer_id.ne => nil, :limit => limit, :offset => (page.to_i-1)*limit, :order => "created_at DESC")
   end
-  
-  def self.tagged(tag, page = 1, limit = LIMIT)
-    raise "Wrong page" if page.to_i < 1
-    all("tags.name" => tag, :limit => limit, :offset => (page.to_i-1)*limit, :order => "created_at DESC")
-  end
+
   
   def self.search(keyword, page = 1, limit = LIMIT)
     rails "Wrong page" if page.to_i < 1

@@ -20,7 +20,8 @@ class QuestionsController < ApplicationController
   
   def tagged
     @tag = Tag.find_by_name(params[:tag])
-    @questions = @tag.nil? ? [] : Question.tagged(@tag.name)
+    render 'welcome/404' and return if @tag.blank?
+    @questions = @tag.questions.order("id DESC").paginage :page => params[:page], :per_page => 30 
   end
   
   def search
