@@ -48,7 +48,7 @@ function imgUploading() {
 				<label for="email">Email</label>
 			</td>
 			<td>
-				<input type="text" tabindex="108" value="<%= @user.email%>" maxlength="40" size="40" name="email" id="email">
+				<input type="text" tabindex="108" value="<%= @user.email %>" maxlength="40" size="40" name="email" id="email">
 			</td>
 		</tr>
 		<% if @prev_action == 'edit' %>
@@ -88,7 +88,7 @@ function imgUploading() {
 
 <div class="form-submit cbt">
 	<% submit_text = @user.new_record? ? "注册" : "提交" %>
-	<%= f.submit submit_text, :tabindex=>"120", :style=>"width: 160px"%>
+	<%= f.submit submit_text, :tabindex=>"120", :style=>"width: 160px" %>
 </div>
 
 <% end %>

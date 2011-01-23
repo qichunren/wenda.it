@@ -12,8 +12,7 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime "last_change_at"
       t.integer  "views_count",               :default => 0
       t.datetime "last_login_time"                     
-      t.string   "last_login_ip" 
-      t.text     "tags"
+      t.string   "last_login_ip"
       t.timestamps
     end
   end

@@ -22,23 +22,30 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :badges  
   # acts_as_tagger
+  attr_accessor :new_password, :new_password_confirmation
+  
+  validates_uniqueness_of :name, :email
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on => :create  
+  
+  validates_confirmation_of :new_password, :if=>:password_changed?
+   
+  before_save :hash_new_password, :if => :password_changed?
+   
+  def password_changed?
+     !@new_password.blank?
+  end
   
   
   
   def display_name
     self.name || self.email
   end
-  
-  def password=(pass)
-    salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
-    self.salt, self.crypted_password = salt, Digest::SHA256.hexdigest(pass + salt)
-  end
 
   def self.authenticate(name, password)
     user = User.find_by_name(name)
     if user.nil?
       return nil
-    elsif Digest::SHA256.hexdigest(password + user.salt) != user.crypted_password
+    elsif Digest::SHA2.hexdigest(user.salt + password) != user.crypted_password
       return nil
     end
     user
@@ -46,11 +53,6 @@ class User < ActiveRecord::Base
   
   def self.recent(limit = LIMIT)
     all(:limit => limit, :order => "created_at DESC")
-  end
-  
-  def self.paginate(page = 1, limit = 35)
-    raise "Wrong page" if page.to_i < 1
-    all(:limit => limit, :offset => (page.to_i-1)*limit, :order => "created_at DESC")
   end
   
   def self.search(keyword)
@@ -103,6 +105,19 @@ class User < ActiveRecord::Base
   
   def tags_count
     10# self.tags.size
+  end
+  
+  private      
+  
+  def hash_new_password
+    # First reset the salt to a new random string.  You could choose a
+    # longer string here but for a salt, 8 bytes of randomness is probably
+    # fine.  Note this uses SecureRandom which will use your platform's secure
+    # random number generator.
+    self.salt = ActiveSupport::SecureRandom.base64(8)
+    # Now calculate the hash of the password, with the salt prepended, store
+    # store that in the database
+    self.crypted_password = Digest::SHA2.hexdigest(self.salt + @new_password)  
   end
   
 end

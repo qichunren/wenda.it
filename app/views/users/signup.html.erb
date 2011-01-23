@@ -3,6 +3,78 @@
 		<h1 id="h-users">用户注册</h1>
 	</div>
 
-	<%= render 'form' %>
+  <script language="javascript">
+  $(document).ready(function() {
+      $("#user_name").focus();
+  });
+  function imgUploading() {
+  	if(!$('#image').val().match(/(.jpg|.jpeg|.gif|.png)$/i)){
+  		alert('图片格式错误，图片只能上传.jpg .jpeg .gif .png 格式的！');
+  		$('#image').val('');
+  		return;
+  	}
+  }
+  </script>
+
+  <%= form_for(@user, :html => {:multipart => true}) do |f| %>
+
+  <div class="form-item ask-title">
+  	<input type="hidden" name="prev_action" value="<%=@prev_action%>">
+  	<table class="ask-title-table">
+  		<tr>
+  			<td>
+  				<label for="username">用户名</label>
+  			</td>
+  			<td>
+  				<%= f.text_field :name, :maxlength => 30 %>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>
+  				<label for="password">密码</label>
+  			</td>
+  			<td>
+  				<%= f.password_field :new_password, :maxlength => 40 %>
+  				<% if @prev_action == 'edit' %>
+  					(不输入密码表示不对密码进行更改)
+  				<% end %>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>
+  				<label for="password_confirm">重复密码</label>
+  			</td>
+  			<td> 
+  				<%= f.password_field :new_password_confirmation, :maxlength => 40 %>
+  			</td>
+  		</tr>
+  		<tr>
+  			<td>
+  				<label for="email">Email</label>
+  			</td>
+  			<td> 
+  				<%= f.text_field :email, :maxlength => 40 %>
+  			</td>
+  		</tr>
+  	</table>
+  </div>
+
+  <div class="form-error">
+  	<% if @errors %>
+  	<p>咦？出错了:</p>
+  	<ul>
+  		<% @errors.each do |e| %>
+  		<li><%= e %></li>
+  		<% end %>
+  	</ul>
+  	<% end %>
+  </div>
+
+  <div class="form-submit cbt">
+  	<% submit_text = @user.new_record? ? "注册" : "提交" %>
+  	<%= f.submit submit_text, :tabindex=>"120", :style=>"width: 160px" %>
+  </div>
+
+  <% end %>
 
 </div>
