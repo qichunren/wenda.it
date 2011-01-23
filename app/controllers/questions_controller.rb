@@ -117,12 +117,7 @@ class QuestionsController < ApplicationController
       params[:tags].gsub!("请使用空格或逗号分隔多个标签", "")
       params[:tags].strip!
       @errors = []
-      if params[:question][:title].size <= 10
-        @errors << "标题不能短于10个字符"
-      end
-      if params[:question][:content].size <= 30
-        @errors << "内容不能短于30个字符"
-      end
+
       if params[:tags].blank?
         @errors << "至少需要一个标签"
       end

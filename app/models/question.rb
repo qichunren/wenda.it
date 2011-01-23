@@ -4,8 +4,12 @@ class Question < ActiveRecord::Base
   belongs_to :user
   has_many :answers       
   # acts_as_taggable_on :tags
+  has_many :tags
   
-  scope :unanswered, where("best_answer_id is null")
+  scope :unanswered, where("best_answer_id is null") 
+  
+  validates_length_of :title, :minimum => 10
+  validates_length_of :content, :minimum => 30
   
   def self.hot(limit = LIMIT)
     all(:limit => limit, :order => "votes_count DESC, answers_count DESC, views_count DESC, created_at DESC")

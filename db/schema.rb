@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(:version => 20110116040035) do
     t.datetime "updated_at"
   end
 
+  create_table "question_tags", :force => true do |t|
+    t.integer  "question_id"
+    t.integer  "tag_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+  end
+
   create_table "questions", :force => true do |t|
     t.string   "title"
     t.text     "content"
@@ -46,13 +53,6 @@ ActiveRecord::Schema.define(:version => 20110116040035) do
     t.text     "tags"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "questions_tags", :force => true do |t|
-    t.integer  "question_id"
-    t.integer  "tag_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
   end
 
   create_table "tags", :force => true do |t|
