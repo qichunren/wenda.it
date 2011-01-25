@@ -1,5 +1,12 @@
 # encoding: utf-8
-module ApplicationHelper
+module ApplicationHelper     
+  
+  # set the title for the page
+  def title(page_title)
+    content_for(:title) do
+      "#{page_title} - #{DEFAULT_TITLE}"
+    end
+  end
   
   def time_ago_in_words(from_time, include_seconds = true)
     distance_of_time_in_words(from_time, Time.now, include_seconds)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><%=@title ? @title : DEFAULT_TITLE%></title>
+		<title><%= yield(:title).blank? ? DEFAULT_TITLE : yield(:title) %></title>
 		<meta name="description" content="<%=@meta ? @meta : DEFAULT_META%>" />
 		<meta name="keywords"  content="<%=@keywords ? @keywords : DEFAULT_KEYWORDS%>" />
 		<link rel="shortcut icon" href="/images/favicon.ico">
