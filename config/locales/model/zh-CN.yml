@@ -1,0 +1,11 @@
+"zh-CN":
+  activerecord:
+    models:
+      user: "用户"
+      
+    attributes:
+      user:
+        name: "帐号"
+        new_password: "密码"
+        new_password_confirmation: "确认密码"
+        email: "Email"
