@@ -20,9 +20,7 @@ function imgUploading() {
 			<td>
 				<label for="username">用户名</label>
 			</td>
-			<td>
-				<input type="text" tabindex="105" value="<%= @user.display_name%>" maxlength="30" size="30" name="username" id="username">
-			</td>
+			<td><%= @user.display_name %></td>
 		</tr>
 		<tr>
 			<td>
@@ -51,7 +49,7 @@ function imgUploading() {
 				<input type="text" tabindex="108" value="<%= @user.email %>" maxlength="40" size="40" name="email" id="email">
 			</td>
 		</tr>
-		<% if @prev_action == 'edit' %>
+
 		<tr>
 			<td>
 				<label for="email">头像</label>
@@ -67,11 +65,8 @@ function imgUploading() {
 			<td>
 				<label for="about_me" style="vertical-align: middle">个人简介</label>
 			</td>
-			<td>
-				<textarea tabindex="110" rows="12" cols="80" name="about_me" id="about_me"><%= @user.about_me%></textarea>
-			</td>
+			<td><%= f.text_area :about_me, :rows => 12, :cols => 80 %></td>
 		</tr>
-		<% end %>
 	</table>
 </div>
 

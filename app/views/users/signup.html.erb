@@ -36,7 +36,7 @@
   	<table class="ask-title-table">
   		<tr>
   			<td>
-  				<label for="username">用户名</label>
+  				<label for="user_name">用户名</label>
   			</td>
   			<td>
   				<%= f.text_field :name, :maxlength => 30 %>
@@ -44,7 +44,7 @@
   		</tr>
   		<tr>
   			<td>
-  				<label for="password">密码</label>
+  				<label for="user_new_password">密码</label>
   			</td>
   			<td>
   				<%= f.password_field :new_password, :maxlength => 40 %>
@@ -55,7 +55,7 @@
   		</tr>
   		<tr>
   			<td>
-  				<label for="password_confirm">重复密码</label>
+  				<label for="user_new_password_confirmation">重复密码</label>
   			</td>
   			<td> 
   				<%= f.password_field :new_password_confirmation, :maxlength => 40 %>
@@ -63,7 +63,7 @@
   		</tr>
   		<tr>
   			<td>
-  				<label for="email">Email</label>
+  				<label for="user_email">Email</label>
   			</td>
   			<td> 
   				<%= f.text_field :email, :maxlength => 40 %>

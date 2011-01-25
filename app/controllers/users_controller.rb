@@ -47,12 +47,9 @@ class UsersController < ApplicationController
     end
   end
   
-  def update
-    validate_update_user
-    if @errors.empty?
-        @user.about_me = params[:about_me]
-        @user.password = params[:password].strip if !params[:password].blank?
-        @user.save
+  def update 
+    @user = User.find params[:id]
+    if @user.update_attributes params[:user]
         @user.save_avatar(params[:image]) if params[:image]
         session[:user_id] = @user.id
         redirect_to @user
