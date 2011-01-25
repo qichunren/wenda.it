@@ -9,7 +9,19 @@ function imgUploading() {
 		return;
 	}
 }
-</script>
+</script>   
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h4><%=  @user.errors.count %> 个错误发生:</h4>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <%= form_for(@user, :html => {:multipart => true}) do |f| %>
 
@@ -23,67 +35,32 @@ function imgUploading() {
 			<td><%= @user.display_name %></td>
 		</tr>
 		<tr>
+			<td><label for="password">密码</label></td>
 			<td>
-				<label for="password">密码</label>
-			</td>
-			<td>
-				<input type="password" tabindex="106" value="" maxlength="40" size="40" name="password" id="password">
+				 <%= f.password_field :new_password, :maxlength => 40 %>
 				<% if @prev_action == 'edit' %>
 					(不输入密码表示不对密码进行更改)
 				<% end %>
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<label for="password_confirm">重复密码</label>
-			</td>
-			<td>
-				<input type="password" tabindex="107" value="" maxlength="40" size="40" name="password_confirm" id="password_confirm">
-			</td>
+			<td><label for="password_confirm">重复密码</label></td>
+			<td><%= f.password_field :new_password_confirmation, :maxlength => 40 %></td>
 		</tr>
 		<tr>
-			<td>
-				<label for="email">Email</label>
-			</td>
-			<td>
-				<input type="text" tabindex="108" value="<%= @user.email %>" maxlength="40" size="40" name="email" id="email">
-			</td>
+			<td><label for="user_email">Email</label></td>
+			<td><%= f.text_field :email, :maxlength => 40 %></td>
 		</tr>
 
 		<tr>
-			<td>
-				<label for="email">头像</label>
-			</td>
-			<td>
-				<input type="file" tabindex="109" onchange="imgUploading()" size="30" id="image" name="image">
-				<% if @user.avatar_path %>
-				<img width="70" height="70" class="logo" alt="" src="<%=@user.avatar_path || '/images/avatar.jpg'%>">
-				<% end %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="about_me" style="vertical-align: middle">个人简介</label>
-			</td>
+			<td><label for="about_me" style="vertical-align: middle">个人简介</label></td>
 			<td><%= f.text_area :about_me, :rows => 12, :cols => 80 %></td>
 		</tr>
 	</table>
 </div>
 
-<div class="form-error">
-	<% if @errors %>
-	<p>咦？出错了:</p>
-	<ul>
-		<% @errors.each do |e| %>
-		<li><%= e %></li>
-		<% end %>
-	</ul>
-	<% end %>
-</div>
-
 <div class="form-submit cbt">
-	<% submit_text = @user.new_record? ? "注册" : "提交" %>
-	<%= f.submit submit_text, :tabindex=>"120", :style=>"width: 160px" %>
+	<%= f.submit "提交", :tabindex=>"120", :style=>"width: 160px" %>
 </div>
 
 <% end %>

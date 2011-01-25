@@ -49,9 +49,10 @@ class UsersController < ApplicationController
   
   def update 
     @user = User.find params[:id]
+    redirect_to root_path if @user.id != current_user.id
+    
     if @user.update_attributes params[:user]
-        @user.save_avatar(params[:image]) if params[:image]
-        session[:user_id] = @user.id
+        flash[:notice] = "个人信息已更新"
         redirect_to @user
     else
       @prev_action = params[:prev_action]
