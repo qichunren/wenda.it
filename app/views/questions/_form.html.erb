@@ -1,7 +1,9 @@
-<link rel="stylesheet" type="text/css" href="/markitup/skins/simple/style.css" />
-<link rel="stylesheet" type="text/css" href="/markitup/sets/markdown/style.css" />
-<script type="text/javascript" src="/markitup/jquery.markitup.js"></script>
-<script type="text/javascript" src="/markitup/sets/markdown/set.js"></script>
+<%= content_for :html_head do %>
+  <link rel="stylesheet" type="text/css" href="/markitup/skins/simple/style.css" />
+  <link rel="stylesheet" type="text/css" href="/markitup/sets/markdown/style.css" />
+  <script type="text/javascript" src="/markitup/jquery.markitup.js"></script>
+  <script type="text/javascript" src="/markitup/sets/markdown/set.js"></script>  
+<% end %>
 
 <script language="javascript">
 $(document).ready(function() {
@@ -16,10 +18,10 @@ $(document).ready(function() {
 	<table class="ask-title-table">
 		<tr>
 			<td class="ask-title-cell-key">
-				<label for="title">标题</label>
+				<label for="question_title">标题</label>
 			</td>
 			<td class="ask-title-cell-value">
-				<%= f.text_field :title, :class=>"ask-title-field", :tabindex=>"100", :maxlength=>"50" %>
+				<%= f.text_field :title, :class => "ask-title-field", :tabindex => "100", :maxlength => 50 %>
 			</td>
 		</tr>
 	</table>
@@ -33,7 +35,7 @@ $(document).ready(function() {
 
 <div class="form-item">
 	<label>标签</label>
-	<input type="text" onfocus="if (this.value=='请使用空格或逗号分隔多个标签') this.value = ''" onblur="if (this.value=='') this.value = '请使用空格或逗号分隔多个标签'" tabindex="103" value="<%= @question.tags.blank? ? '请使用空格或逗号分隔多个标签' : @question.tags[0].is_a?(Hash) ? @question.tags.map{|t|t["name"]}.join(' ') : @question.tags %>" size="60" maxlength="60" name="tags" id="tags" class="edit-field-overlayed ac_input" autocomplete="off">		
+	<input type="text" onfocus="if (this.value=='请使用逗号分隔多个标签') this.value = ''" onblur="if (this.value=='') this.value = '请使用逗号分隔多个标签'" tabindex="103" value="<%= @question.tags.blank? ? '请使用逗号分隔多个标签' : @question.tag_list %>" size="60" maxlength="60" name="tags" id="tags" class="edit-field-overlayed ac_input" autocomplete="off">		
 </div>
 
 <% if @question.new_record? && !login? %>
@@ -61,20 +63,6 @@ $(document).ready(function() {
 	</table>
 </div>
 <% end %>
-
-<div class="form-error">
-	<% if @errors %>
-	<script>
-		$().ready(function() {window.scrollBy(0,100000);});
-	</script>
-	<p>咦？出错了:</p>
-	<ul>
-		<% @errors.each do |e| %>
-		<li><%= e %></li>
-		<% end %>
-	</ul>
-	<% end %>
-</div>
 
 <div class="form-submit cbt">
 	<% submit_text = @question.new_record? ? "发布问题" : "保存修改" %>

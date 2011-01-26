@@ -8,7 +8,8 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/all.css">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/qichunren_custom.css">
 		<%=javascript_include_tag 'jquery' %>
-		<%= csrf_meta_tag %>
+		<%= csrf_meta_tag %>   
+		<%= yield :html_head %>
 	</head>
 <body>
 

@@ -76,20 +76,19 @@ class QuestionsController < ApplicationController
   end
   
   def create
-    @question = Question.new
-    @question.title = params[:question][:title].strip
-    @question.content = params[:question][:content]
-    if @errors.empty?
-      if !login?
-        log_in(@user)
-      end
+    @question = Question.new params[:question]
+    @user = current_user
+    if true
+      # if !login?
+      #   log_in(@user)
+      # end   
       @question.user = @user
       @question.save_tags(params[:tags])
       @question.save
-      key = current_user.id.to_s + "_sina_api_token"
-      if API_TOKENS[key]
-        API_TOKENS[key].post("/statuses/update.xml", :status=>@question.title + " " + question_url(@question))
-      end
+      # key = current_user.id.to_s + "_sina_api_token"
+      # if API_TOKENS[key]
+      #   API_TOKENS[key].post("/statuses/update.xml", :status=>@question.title + " " + question_url(@question))
+      # end     
       redirect_to @question
     else
       @question.tags = params[:tags]

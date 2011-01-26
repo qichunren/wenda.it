@@ -28,11 +28,17 @@ class Question < ActiveRecord::Base
   
   def self.answered_questions_count
     # count - count(:best_answer_id => nil)
+  end      
+  
+  def tag_list
+    self.tags.all.collect {|tag| tag.name }.join(", ")
   end
   
   def save_tags(tags)
-    tags_array = []
-    tags.gsub(",", " ").gsub("，", " ").split(" ").uniq.each do |tag|
+    tags_array = []        
+    tags = tags.gsub("，", ",").split(",").uniq.collect{|tag|tag.strip}
+    raise "#{tags.inspect}"
+    tags.gsub("，", ",").split(",").uniq.each do |tag|
       t = Tag.find_by_name(tag)
       if t
         t.questions_count += 1 if !self.has_tag(t)
